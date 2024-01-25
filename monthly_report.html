@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>月報画面</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>月報</h1>
+        <div class="user-info">
+            <p id="user-name">ログインユーザ名: <span id="username"></span></p>
+        </div>
+
+        <!-- 月報選択 -->
+        <div class="form-group">
+            <label for="report-month">月報選択</label>
+            <select id="report-month">
+                <!-- JavaScriptで過去36ヶ月分のオプションを動的に生成 -->
+            </select>
+        </div>
+
+        <form id="monthly-report-form">
+            <!-- プロジェクト概要 -->
+            <div class="form-group">
+                <label for="project-overview">プロジェクト概要</label>
+                <textarea id="project-overview" rows="4"></textarea>
+                <p class="note">この項目は【第1開発_月報（閲覧用）】スペースに通知されます。</p>
+            </div>
+
+            <!-- 1ヶ月を振り返った業務実績 -->
+            <div class="form-group">
+                <label for="monthly-achievement">1ヶ月を振り返った業務実績</label>
+                <textarea id="monthly-achievement" rows="6"></textarea>
+                <p class="note">この項目は【第1開発_月報（閲覧用）】スペースに通知されます。</p>
+            </div>
+
+            <!-- 業務上で感じている自身の課題と対策 -->
+            <div class="form-group">
+                <label for="challenges">業務上で感じている自身の課題と対策</label>
+                <textarea id="challenges" rows="4"></textarea>
+                <p class="note">業務を通して不足している技術スキルやビジネススキルの克服策などを簡潔に書いてください。</p>
+            </div>
+
+            <!-- 困っていること（業務） -->
+            <div class="form-group">
+                <label for="difficulties">困っていること（業務）</label>
+                <textarea id="difficulties" rows="4"></textarea>
+                <p class="note">営業や上長のサポートが必要な点などを簡潔に書きましょう。</p>
+            </div>
+
+            <!-- その他 -->
+            <div class="form-group">
+                <label for="other-comments">その他</label>
+                <textarea id="other-comments" rows="4"></textarea>
+            </div>
+
+            <!-- 基本理念5箇条 -->
+            <div class="form-group">
+                <label for="principle1">基本理念5箇条の1</label>
+                <input type="range" id="principle1" min="1" max="4">
+            </div>
+            <div class="form-group">
+                <label for="principle2">基本理念5箇条の2</label>
+                <input type="range" id="principle2" min="1" max="4">
+            </div>
+            <div class="form-group">
+                <label for="principle3">基本理念5箇条の3</label>
+                <input type="range" id="principle3" min="1" max="4">
+            </div>
+
+            <!-- ボタン -->
+            <button type="button" id="save-draft">下書き保存</button>
+            <button type="button" id="submit-report">登録</button>
+        </form>
+
+        <!-- 上長・営業とのチャット欄 -->
+        <div class="manager-sales-chat" id="manager-sales-chat" style="display:none;">
+            <h2>上長・営業とのチャット</h2>
+            <div class="chat-box" id="chat-box"></div>
+            <input type="text" id="chat-input" placeholder="メッセージを入力">
+            <button onclick="sendChat()">送信</button>
+        </div>
+    </div>
+</body>
+</html>
