@@ -22,13 +22,18 @@
       let months = [];
       for (let i = 0; i < 36; i++) {
         const monthOption = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - i, 1);
-        const monthString = monthOption.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long' });
-        months.push({ value: monthOption.toISOString().split('T')[0], label: monthString });
+        const year = monthOption.getFullYear();
+        // getMonth() は 0 から始まるので、1 を加算
+        const month = (monthOption.getMonth() + 1).toString().padStart(2, '0'); // '01', '02', ..., '12'
+        const monthValue = `${year}-${month}`; // 'YYYY-MM' 形式
+        const monthLabel = monthOption.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long' });
+        months.push({ value: monthValue, label: monthLabel });
       }
     setReportMonths(months);
     }, []);
 
     // フォームの各入力値を管理するための状態フック
+    const [reportMonth, setReportMonth] = useState('');
     const [projectOverview, setProjectOverview] = useState('');
     const [monthlyAchievement, setMonthlyAchievement] = useState('');
     const [challenges, setChallenges] = useState('');
@@ -42,6 +47,7 @@
     const saveDraft = async () => {
       // 例えば、フォームの状態をここで取得
       const formData = {
+        reportMonth,
         projectOverview,
         monthlyAchievement,
         challenges,
@@ -87,7 +93,8 @@
       {/* 月報選択 */}
       <div className={styles.form_group}>
         <label htmlFor="report-month">月報選択</label>
-        <select id="report-month">
+        <select id="report-month"
+        onChange={(e) => setReportMonth(e.target.value)} >
           {reportMonths.map(month => (
             <option key={month.value} value={month.value}>
               {month.label}
