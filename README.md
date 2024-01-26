@@ -5,6 +5,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
+brew install mongodb-community@5.0
+npm install mongodb
 brew services start mongodb/brew/mongodb-community@5.0
 
 npm run dev

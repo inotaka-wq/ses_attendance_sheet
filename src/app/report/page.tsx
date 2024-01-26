@@ -59,7 +59,6 @@
       };
     
       // バックエンドにデータを送信
-  //    await fetch('/api/save-draft', {
       await fetch('/api/save-draft', {
           method: 'POST',
           headers: {
