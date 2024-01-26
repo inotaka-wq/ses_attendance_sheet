@@ -5,6 +5,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
+brew services start mongodb/brew/mongodb-community@5.0
+
 npm run dev
 # or
 yarn dev
@@ -12,6 +14,8 @@ yarn dev
 pnpm dev
 # or
 bun dev
+
+brew services stop mongodb/brew/mongodb-community@5.0
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
