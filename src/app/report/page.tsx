@@ -90,6 +90,10 @@
         if (response.ok) {
           const data = await response.json();
           // ここで取得したデータを使ってフォームを更新
+          // フォームの状態を更新
+          setProjectOverview(data.projectOverview);
+          setMonthlyAchievement(data.monthlyAchievement);
+
         } else {
           // レポートが見つからない場合の処理
         }
@@ -125,7 +129,12 @@
         {/* プロジェクト概要 */}
         <div className={styles.form_group}>
           <label htmlFor="project-overview">プロジェクト概要</label>
-          <textarea id="project-overview" rows={4} defaultValue={""} onChange={(e) => setProjectOverview(e.target.value)}/>
+          <textarea
+            id="project-overview"
+            rows={4} defaultValue={""}
+            value={projectOverview}
+            onChange={(e) => setProjectOverview(e.target.value)}
+          />
           <p className={styles.note}>
             この項目は【第1開発_月報（閲覧用）】スペースに通知されます。
           </p>
@@ -133,7 +142,11 @@
         {/* 1ヶ月を振り返った業務実績 */}
         <div className={styles.form_group}>
           <label htmlFor="monthly-achievement">1ヶ月を振り返った業務実績</label>
-          <textarea id="monthly-achievement" rows={6} defaultValue={""} onChange={(e) => setMonthlyAchievement(e.target.value)}/>
+          <textarea
+            id="monthly-achievement"
+            rows={6} defaultValue={""}
+            value={monthlyAchievement}
+            onChange={(e) => setMonthlyAchievement(e.target.value)}/>
           <p className={styles.note}>
             この項目は【第1開発_月報（閲覧用）】スペースに通知されます。
           </p>
