@@ -93,6 +93,7 @@
           // フォームの状態を更新
           setProjectOverview(data.projectOverview);
           setMonthlyAchievement(data.monthlyAchievement);
+          setChallenges(data.challenges);
 
         } else {
           // レポートが見つからない場合の処理
@@ -154,7 +155,12 @@
         {/* 業務上で感じている自身の課題と対策 */}
         <div className={styles.form_group}>
           <label htmlFor="challenges">業務上で感じている自身の課題と対策</label>
-          <textarea id="challenges" rows={4} defaultValue={""} onChange={(e) => setChallenges(e.target.value)}/>
+          <textarea
+            id="challenges"
+            rows={4}
+            defaultValue={""}
+            value={monthlyAchievement}
+            onChange={(e) => setChallenges(e.target.value)}/>
           <p className={styles.note}>
             業務を通して不足している技術スキルやビジネススキルの克服策などを簡潔に書いてください。
           </p>
