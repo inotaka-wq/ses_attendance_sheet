@@ -20,7 +20,7 @@
     useEffect(() => {
       const currentMonth = new Date();
       let months = [];
-      for (let i = 0; i < 36; i++) {
+      for (let i = 0; i < 18; i++) {
         const monthOption = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - i, 1);
         const year = monthOption.getFullYear();
         // getMonth() は 0 から始まるので、1 を加算
@@ -29,8 +29,10 @@
         const monthLabel = monthOption.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long' });
         months.push({ value: monthValue, label: monthLabel });
       }
-    setReportMonths(months);
+      setReportMonths(months);
     }, []);
+
+    const employeeId = 'dummy'
 
     // フォームの各入力値を管理するための状態フック
     const [reportMonth, setReportMonth] = useState('');
@@ -47,6 +49,7 @@
     const saveDraft = async () => {
       // 例えば、フォームの状態をここで取得
       const formData = {
+        employeeId,
         reportMonth,
         projectOverview,
         monthlyAchievement,
@@ -57,7 +60,7 @@
         principle2,
         principle3,
       };
-    
+
       // バックエンドにデータを送信
       await fetch('/api/save-draft', {
           method: 'POST',
@@ -77,6 +80,23 @@
       }
     };
 
+    // 月報選択が変更されたときのハンドラ
+    const handleMonthChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const selectedMonth = event.target.value;
+      setReportMonth(selectedMonth);
+
+      try {
+        const response = await fetch(`/api/get-report?employeeId=${employeeId}&reportMonth=${selectedMonth}`);
+        if (response.ok) {
+          const data = await response.json();
+          // ここで取得したデータを使ってフォームを更新
+        } else {
+          // レポートが見つからない場合の処理
+        }
+      } catch (error) {
+        console.error('Error fetching report:', error);
+      }
+    };
 
     return (
   <>
@@ -93,7 +113,7 @@
       <div className={styles.form_group}>
         <label htmlFor="report-month">月報選択</label>
         <select id="report-month"
-        onChange={(e) => setReportMonth(e.target.value)} >
+        onChange={handleMonthChange} >
           {reportMonths.map(month => (
             <option key={month.value} value={month.value}>
               {month.label}

@@ -5,10 +5,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
-brew install mongodb-community@5.0
-npm install mongodb
-brew services start mongodb/brew/mongodb-community@5.0
-
 npm run dev
 # or
 yarn dev
@@ -16,9 +12,44 @@ yarn dev
 pnpm dev
 # or
 bun dev
+```
+
+
+```bash
+brew install mongodb-community@5.0
+npm install mongodb
+brew services start mongodb/brew/mongodb-community@5.0
+
+bun dev
+データベースのリストを表示:
+
+javascript
+show dbs
+特定のデータベースを使用:
+
+javascript
+use yourDatabaseName
+コレクション（テーブルに相当）のリストを表示:
+
+javascript
+show collections
+コレクションにデータを挿入:
+
+javascript
+db.yourCollectionName.insert({ key: 'value' })
+コレクションからデータを検索:
+
+javascript
+db.yourCollectionName.find()
+特定のクエリでデータを検索:
+
+javascript
+Copy code
+db.yourCollectionName.find({ key: 'value' })
 
 brew services stop mongodb/brew/mongodb-community@5.0
 ```
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
