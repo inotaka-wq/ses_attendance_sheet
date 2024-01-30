@@ -17,9 +17,9 @@ export default async function handler(req, res) {
 
       // MongoDBで検索
       const result = await collection.findOne({ employeeId, reportMonth });
-      console.log(result);
 
       if (result) {
+        console.log(result);
         res.status(200).json(result);
       } else {
         res.status(404).json({ message: 'No report found' });
