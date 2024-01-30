@@ -94,7 +94,8 @@
           setProjectOverview(data.projectOverview);
           setMonthlyAchievement(data.monthlyAchievement);
           setChallenges(data.challenges);
-
+          setDifficulties(data.difficulties);
+          setOtherComments(data.otherComments);
         } else {
           // レポートが見つからない場合の処理
         }
@@ -159,7 +160,7 @@
             id="challenges"
             rows={4}
             defaultValue={""}
-            value={monthlyAchievement}
+            value={challenges}
             onChange={(e) => setChallenges(e.target.value)}/>
           <p className={styles.note}>
             業務を通して不足している技術スキルやビジネススキルの克服策などを簡潔に書いてください。
@@ -168,7 +169,12 @@
         {/* 困っていること（業務） */}
         <div className={styles.form_group}>
           <label htmlFor="difficulties">困っていること（業務）</label>
-          <textarea id="difficulties" rows={4} defaultValue={""} onChange={(e) => setDifficulties(e.target.value)}/>
+          <textarea
+            id="difficulties"
+            rows={4}
+            defaultValue={""}
+            value={difficulties}
+            onChange={(e) => setDifficulties(e.target.value)}/>
           <p className={styles.note}>
             営業や上長のサポートが必要な点などを簡潔に書きましょう。
           </p>
@@ -176,7 +182,12 @@
         {/* その他 */}
         <div className={styles.form_group}>
           <label htmlFor="other-comments">その他</label>
-          <textarea id="other-comments" rows={4} defaultValue={""} onChange={(e) => setOtherComments(e.target.value)}/>
+          <textarea
+            id="other-comments"
+            rows={4}
+            defaultValue={""}
+            value={otherComments}
+            onChange={(e) => setOtherComments(e.target.value)}/>
         </div>
         {/* 基本理念5箇条 */}
         <div className={styles.form_group}>
