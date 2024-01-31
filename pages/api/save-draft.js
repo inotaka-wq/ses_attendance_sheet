@@ -13,14 +13,22 @@ export default async function handler(req, res) {
       if (req.method === 'POST') {
         const draftData = req.body;
         console.log("Draft data received:", draftData);
-    
-        // ここでデータを保存する処理を記述
-        // 例: データベースへの保存、ファイルへの書き込みなど
-        // データベースにデータを挿入
-        const result = await collection.insertOne(draftData);
-        console.log(`A document was inserted with the _id: ${result.insertedId}`);
-  
-        res.status(200).json({ message: 'Draft saved', _id: result.insertedId });
+        // 一意性を保証するためのクエリを作成
+        const query = {
+          employeeId: draftData.employeeId,
+          reportMonth: draftData.reportMonth
+        };
+        // すでに同じキーのドキュメントがあるか確認
+        const existingDocument = await collection.findOne(query);
+        if (existingDocument) {
+          // ドキュメントが存在する場合は更新
+          await collection.updateOne(query, { $set: draftData });
+          res.status(200).json({ message: 'Draft updated', _id: existingDocument._id });
+        } else {
+          // 新しいドキュメントを挿入
+          const result = await collection.insertOne(draftData);
+          res.status(200).json({ message: 'Draft saved', _id: result.insertedId });
+        }
       } else {
         // POSTメソッド以外の場合は405 Method Not Allowedを返す
         res.setHeader('Allow', ['POST']);
