@@ -62,7 +62,7 @@
       };
 
       // バックエンドにデータを送信
-      await fetch('/api/save-draft', {
+      await fetch('/api/save-report', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
