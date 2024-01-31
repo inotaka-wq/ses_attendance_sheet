@@ -96,6 +96,9 @@
           setChallenges(data.challenges);
           setDifficulties(data.difficulties);
           setOtherComments(data.otherComments);
+          setPrinciple1(data.principle1);
+          setPrinciple2(data.principle2);
+          setPrinciple3(data.principle3);
         } else {
           // レポートが見つからない場合の処理
         }
@@ -192,15 +195,33 @@
         {/* 基本理念5箇条 */}
         <div className={styles.form_group}>
           <label htmlFor="principle1">基本理念5箇条の1</label>
-          <input type="range" id="principle1" min={1} max={4} onChange={(e) => setPrinciple1(e.target.value)}/>
+          <input
+            type="range"
+            id="principle1"
+            min={1}
+            max={4}
+            value={principle1}
+            onChange={(e) => setPrinciple1(e.target.value)}/>
         </div>
         <div className={styles.form_group}>
           <label htmlFor="principle2">基本理念5箇条の2</label>
-          <input type="range" id="principle2" min={1} max={4} onChange={(e) => setPrinciple2(e.target.value)}/>
+          <input
+            type="range"
+            id="principle2"
+            min={1}
+            max={4}
+            value={principle2}
+            onChange={(e) => setPrinciple2(e.target.value)}/>
         </div>
         <div className={styles.form_group}>
           <label htmlFor="principle3">基本理念5箇条の3</label>
-          <input type="range" id="principle3" min={1} max={4} onChange={(e) => setPrinciple3(e.target.value)}/>
+          <input
+            type="range"
+            id="principle3"
+            min={1}
+            max={4}
+            value={principle3}
+            onChange={(e) => setPrinciple3(e.target.value)}/>
         </div>
         {/* ボタン */}
         <button type="button" id="save-draft" className={styles.button} onClick={saveDraft}>
