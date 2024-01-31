@@ -1,33 +1,23 @@
-const { MongoClient } = require('mongodb');
-
-// MongoDBへの接続設定
-const uri = "mongodb://localhost:27017";
-const client = new MongoClient(uri);
+const dbConnect = require('./db-connect');
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    try {
-      await client.connect();
-      const database = client.db('ses_attendance_sheet');
-      const collection = database.collection('json_data');
+    // データベースに接続
+    const { db } = await dbConnect();
+    const collection = db.collection('json_data'); // コレクション名
 
-      // クエリパラメータから社員IDと月を取得
-      const { employeeId, reportMonth } = req.query;
-      console.log(req.query);
+    // クエリパラメータから社員IDと月を取得
+    const { employeeId, reportMonth } = req.query;
+    console.log(req.query);
 
-      // MongoDBで検索
-      const result = await collection.findOne({ employeeId, reportMonth });
+    // MongoDBで検索
+    const result = await collection.findOne({ employeeId, reportMonth });
 
-      if (result) {
+    if (result) {
         console.log(result);
         res.status(200).json(result);
-      } else {
+    } else {
         res.status(404).json({ message: 'No report found' });
-      }
-    } catch (e) {
-      res.status(500).json({ message: 'Server error' });
-    } finally {
-      await client.close();
     }
   } else {
     res.setHeader('Allow', ['GET']);
