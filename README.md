@@ -23,29 +23,26 @@ brew services start mongodb/brew/mongodb-community@5.0
 bun dev
 データベースのリストを表示:
 
-javascript
 show dbs
 特定のデータベースを使用:
 
-javascript
 use yourDatabaseName
 コレクション（テーブルに相当）のリストを表示:
 
-javascript
 show collections
 コレクションにデータを挿入:
 
-javascript
 db.yourCollectionName.insert({ key: 'value' })
 コレクションからデータを検索:
 
-javascript
 db.yourCollectionName.find()
 特定のクエリでデータを検索:
 
-javascript
-Copy code
-db.yourCollectionName.find({ key: 'value' })
+db.json_data.find({ key: 'value' })
+
+
+db.json_data.deleteMany({})
+全部消す
 
 brew services stop mongodb/brew/mongodb-community@5.0
 ```

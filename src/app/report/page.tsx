@@ -47,7 +47,7 @@
 
     // 下書き保存ボタンのイベントハンドラ
     const saveDraft = async () => {
-      // 例えば、フォームの状態をここで取得
+      // フォームの状態をここで取得
       const formData = {
         employeeId,
         reportMonth,
@@ -68,15 +68,41 @@
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(formData),
-        });
+      });
       alert('下書きを保存しました。');
     };
     
     // レポートを送信するイベントハンドラ
-    const submitReport = () => {
+    const submitReport = async () => {
       if (window.confirm('月報を登録しますか？')) {
         setIsFormDisabled(true); // フォームを無効化
         setIsChatVisible(true); // チャット欄を表示
+        setIsFormDisabled(true);
+        setIsChatVisible(true);
+    
+        // フォームの状態をここで取得
+        const formData = {
+          employeeId,
+          reportMonth,
+          projectOverview,
+          monthlyAchievement,
+          challenges,
+          difficulties,
+          otherComments,
+          principle1,
+          principle2,
+          principle3,
+          isFinal: true,
+        };
+        // バックエンドへの送信処理
+        await fetch('/api/save-report', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+        alert('月報を登録しました。');
       }
     };
 
