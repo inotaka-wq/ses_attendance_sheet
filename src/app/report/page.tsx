@@ -136,7 +136,7 @@
           <label htmlFor="project-overview">プロジェクト概要</label>
           <textarea
             id="project-overview"
-            rows={4} defaultValue={""}
+            rows={4}
             value={projectOverview}
             onChange={(e) => setProjectOverview(e.target.value)}
           />
@@ -149,7 +149,7 @@
           <label htmlFor="monthly-achievement">1ヶ月を振り返った業務実績</label>
           <textarea
             id="monthly-achievement"
-            rows={6} defaultValue={""}
+            rows={6}
             value={monthlyAchievement}
             onChange={(e) => setMonthlyAchievement(e.target.value)}/>
           <p className={styles.note}>
@@ -162,7 +162,6 @@
           <textarea
             id="challenges"
             rows={4}
-            defaultValue={""}
             value={challenges}
             onChange={(e) => setChallenges(e.target.value)}/>
           <p className={styles.note}>
@@ -175,7 +174,6 @@
           <textarea
             id="difficulties"
             rows={4}
-            defaultValue={""}
             value={difficulties}
             onChange={(e) => setDifficulties(e.target.value)}/>
           <p className={styles.note}>
@@ -188,7 +186,6 @@
           <textarea
             id="other-comments"
             rows={4}
-            defaultValue={""}
             value={otherComments}
             onChange={(e) => setOtherComments(e.target.value)}/>
         </div>
