@@ -17,8 +17,10 @@ export default async function handler(req, res) {
       const existingDocument = await collection.findOne(query);
       if (reportData.isFinal) {
         if (existingDocument) {
-          // 確定されたレポートは更新不可
-          return res.status(403).json({ message: 'Final report cannot be updated' });
+          // レポートを確定
+          await collection.updateOne(query, { $set: reportData });
+          res.status(200).json({ message: 'Final report saved', _id: existingDocument.insertedId });
+
         } else {
           // 新しい確定レポートを挿入
           const result = await collection.insertOne(reportData);

@@ -106,6 +106,10 @@
       }
     };
 
+    const sendChat = async () => {
+      alert('test');
+    };
+
     // 月報選択が変更されたときのハンドラ
     const handleMonthChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
       const selectedMonth = event.target.value;
@@ -264,7 +268,7 @@
         <h2>上長・営業とのチャット</h2>
         <div className="chat-box" id="chat-box" />
         <input type="text" id="chat-input" placeholder="メッセージを入力" />
-        <button onClick="{sendChat}">送信</button>
+        <button onClick={sendChat}>送信</button>
       </div>
       )}
     </div>
