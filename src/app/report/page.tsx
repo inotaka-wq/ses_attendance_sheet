@@ -118,7 +118,6 @@
         if (response.ok) {
           const data = await response.json();
           // ここで取得したデータを使ってフォームを更新
-          // フォームの状態を更新
           setProjectOverview(data.projectOverview);
           setMonthlyAchievement(data.monthlyAchievement);
           setChallenges(data.challenges);
@@ -127,12 +126,38 @@
           setPrinciple1(data.principle1);
           setPrinciple2(data.principle2);
           setPrinciple3(data.principle3);
-        } else {
-          // レポートが見つからない場合の処理
+
+          // 確定状態に応じてUI状態を更新
+          if (data.isFinal) {
+            setIsFormDisabled(true); // フォームを無効化
+            setIsChatVisible(true); // チャット欄を表示
+          } else {
+            setIsFormDisabled(false); // フォームを有効化
+            setIsChatVisible(false); // チャット欄を非表示
+          }
+        } else if (response.status === 404) {
+          // 月報が未登録の場合の処理
+          console.log('No report found for this month, showing empty form.');
+          // フォームの状態をリセット
+          resetForm();
+          setIsFormDisabled(false); // フォームを有効化
+          setIsChatVisible(false); // チャット欄を非表示
         }
       } catch (error) {
         console.error('Error fetching report:', error);
       }
+    };
+
+    // フォームの状態をリセットする関数
+    const resetForm = () => {
+      setProjectOverview('');
+      setMonthlyAchievement('');
+      setChallenges('');
+      setDifficulties('');
+      setOtherComments('');
+      setPrinciple1('');
+      setPrinciple2('');
+      setPrinciple3('');
     };
 
     return (
@@ -167,6 +192,7 @@
             rows={4}
             value={projectOverview}
             onChange={(e) => setProjectOverview(e.target.value)}
+            disabled={isFormDisabled}
           />
           <p className={styles.note}>
             この項目は【第1開発_月報（閲覧用）】スペースに通知されます。
@@ -179,7 +205,9 @@
             id="monthly-achievement"
             rows={6}
             value={monthlyAchievement}
-            onChange={(e) => setMonthlyAchievement(e.target.value)}/>
+            onChange={(e) => setMonthlyAchievement(e.target.value)}
+            disabled={isFormDisabled}
+          />
           <p className={styles.note}>
             この項目は【第1開発_月報（閲覧用）】スペースに通知されます。
           </p>
@@ -191,7 +219,9 @@
             id="challenges"
             rows={4}
             value={challenges}
-            onChange={(e) => setChallenges(e.target.value)}/>
+            onChange={(e) => setChallenges(e.target.value)}
+            disabled={isFormDisabled}
+            />
           <p className={styles.note}>
             業務を通して不足している技術スキルやビジネススキルの克服策などを簡潔に書いてください。
           </p>
@@ -203,7 +233,9 @@
             id="difficulties"
             rows={4}
             value={difficulties}
-            onChange={(e) => setDifficulties(e.target.value)}/>
+            onChange={(e) => setDifficulties(e.target.value)}
+            disabled={isFormDisabled}
+          />
           <p className={styles.note}>
             営業や上長のサポートが必要な点などを簡潔に書きましょう。
           </p>
@@ -215,7 +247,9 @@
             id="other-comments"
             rows={4}
             value={otherComments}
-            onChange={(e) => setOtherComments(e.target.value)}/>
+            onChange={(e) => setOtherComments(e.target.value)}
+            disabled={isFormDisabled}
+          />
         </div>
         {/* 基本理念5箇条 */}
         <div className={styles.form_group}>
@@ -226,7 +260,9 @@
             min={1}
             max={4}
             value={principle1}
-            onChange={(e) => setPrinciple1(e.target.value)}/>
+            onChange={(e) => setPrinciple1(e.target.value)}
+            disabled={isFormDisabled}
+          />
         </div>
         <div className={styles.form_group}>
           <label htmlFor="principle2">基本理念5箇条の2</label>
@@ -236,7 +272,9 @@
             min={1}
             max={4}
             value={principle2}
-            onChange={(e) => setPrinciple2(e.target.value)}/>
+            onChange={(e) => setPrinciple2(e.target.value)}
+            disabled={isFormDisabled}
+          />
         </div>
         <div className={styles.form_group}>
           <label htmlFor="principle3">基本理念5箇条の3</label>
@@ -246,15 +284,21 @@
             min={1}
             max={4}
             value={principle3}
-            onChange={(e) => setPrinciple3(e.target.value)}/>
+            onChange={(e) => setPrinciple3(e.target.value)}
+            disabled={isFormDisabled}
+          />
         </div>
-        {/* ボタン */}
-        <button type="button" id="save-draft" className={styles.button} onClick={saveDraft}>
-          下書き保存
-        </button>
-        <button type="button" id="submit-report" className={styles.button} disabled={isFormDisabled} onClick={submitReport}>
-          登録
-        </button>
+        {/* 下書き保存ボタンと登録ボタンの表示を制御 */}
+        {!isFormDisabled && (
+          <>
+            <button type="button" id="save-draft" className={styles.button} onClick={saveDraft}>
+              下書き保存
+            </button>
+            <button type="button" id="submit-report" className={styles.button} onClick={submitReport}>
+              登録
+            </button>
+          </>
+        )}
       </form>
       {/* 上長・営業とのチャット欄 */}
       {isChatVisible && (
