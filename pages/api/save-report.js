@@ -15,6 +15,12 @@ export default async function handler(req, res) {
       };
       // すでに同じキーのドキュメントがあるか確認
       const existingDocument = await collection.findOne(query);
+
+      if (existingDocument && existingDocument.isFinal) {
+        // 既に確定したレポートが存在する場合はエラーを返す
+        return res.status(400).json({ message: 'A final report for this month already exists.' });
+      }
+
       if (reportData.isFinal) {
         if (existingDocument) {
           // レポートを確定

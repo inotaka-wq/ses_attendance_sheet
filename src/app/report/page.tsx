@@ -77,8 +77,6 @@
       if (window.confirm('月報を登録しますか？')) {
         setIsFormDisabled(true); // フォームを無効化
         setIsChatVisible(true); // チャット欄を表示
-        setIsFormDisabled(true);
-        setIsChatVisible(true);
     
         // フォームの状態をここで取得
         const formData = {
