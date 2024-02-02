@@ -15,10 +15,21 @@
     const [isFormDisabled, setIsFormDisabled] = useState(false);
     // チャット欄の表示状態を管理するための状態
     const [isChatVisible, setIsChatVisible] = useState(false);
+    // フォームの各入力値を管理するための状態フック
+    const currentMonth = new Date();
+    const initialMonth = `${currentMonth.getFullYear()}-${(currentMonth.getMonth() + 1).toString().padStart(2, '0')}`;
+    const [reportMonth, setReportMonth] = useState(initialMonth);
+    const [projectOverview, setProjectOverview] = useState('');
+    const [monthlyAchievement, setMonthlyAchievement] = useState('');
+    const [challenges, setChallenges] = useState('');
+    const [difficulties, setDifficulties] = useState('');
+    const [otherComments, setOtherComments] = useState('');
+    const [principle1, setPrinciple1] = useState('');
+    const [principle2, setPrinciple2] = useState('');
+    const [principle3, setPrinciple3] = useState('');
 
     // コンポーネントがマウントされた後、月報のオプションを生成する
     useEffect(() => {
-      const currentMonth = new Date();
       let months = [];
       for (let i = 0; i < 18; i++) {
         const monthOption = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - i, 1);
@@ -33,17 +44,6 @@
     }, []);
 
     const employeeId = 'dummy'
-
-    // フォームの各入力値を管理するための状態フック
-    const [reportMonth, setReportMonth] = useState('');
-    const [projectOverview, setProjectOverview] = useState('');
-    const [monthlyAchievement, setMonthlyAchievement] = useState('');
-    const [challenges, setChallenges] = useState('');
-    const [difficulties, setDifficulties] = useState('');
-    const [otherComments, setOtherComments] = useState('');
-    const [principle1, setPrinciple1] = useState('');
-    const [principle2, setPrinciple2] = useState('');
-    const [principle3, setPrinciple3] = useState('');
 
     // 下書き保存ボタンのイベントハンドラ
     const saveDraft = async () => {
