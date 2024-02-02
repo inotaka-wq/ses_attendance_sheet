@@ -303,14 +303,16 @@
       {/* 上長・営業とのチャット欄 */}
       {isChatVisible && (
       <div
-        className="manager-sales-chat"
+        className={styles.managerSalesChat}
         id="manager-sales-chat"
-        style={{ display: "none" }}
       >
         <h2>上長・営業とのチャット</h2>
-        <div className="chat-box" id="chat-box" />
-        <input type="text" id="chat-input" placeholder="メッセージを入力" />
-        <button onClick={sendChat}>送信</button>
+        <div
+          id="chat-box"
+          className={styles.chatBox}
+        />
+        <input type="text" id="chat-input" className={styles.chat_input} placeholder="メッセージを入力" />
+        <button className={styles.button} onClick={sendChat}>送信</button>
       </div>
       )}
     </div>
