@@ -41,42 +41,8 @@
         months.push({ value: monthValue, label: monthLabel });
       }
       setReportMonths(months);
-
-      // 初期表示時に実行される非同期関数
-      const fetchInitialReport = async () => {
-        const employeeId = 'dummy'; // 適宜、適切な値を設定してください
-        const initialMonth = `${currentMonth.getFullYear()}-${(currentMonth.getMonth() + 1).toString().padStart(2, '0')}`;
-        try {
-          const response = await fetch(`/api/get-report?employeeId=${employeeId}&reportMonth=${initialMonth}`);
-          if (response.ok) {
-            const data = await response.json();
-            // 取得したデータを状態に設定
-            setProjectOverview(data.projectOverview || '');
-            setMonthlyAchievement(data.monthlyAchievement || '');
-            setChallenges(data.challenges || '');
-            setDifficulties(data.difficulties || '');
-            setOtherComments(data.otherComments || '');
-            setPrinciple1(data.principle1 || '');
-            setPrinciple2(data.principle2 || '');
-            setPrinciple3(data.principle3 || '');
-            // 確定状態に応じてUI状態を更新
-            if (data.isFinal) {
-              setIsFormDisabled(true); // フォームを無効化
-              setIsChatVisible(true); // チャット欄を表示
-            } else {
-              setIsFormDisabled(false); // フォームを有効化
-              setIsChatVisible(false); // チャット欄を非表示
-            }
-          } else {
-            // 月報が未登録の場合の処理
-            console.log('No report found for this month, showing empty form.');
-          }
-        } catch (error) {
-          console.error('Error fetching initial report:', error);
-        }
-      };
-  
-      fetchInitialReport();
+      const initialMonth = `${currentMonth.getFullYear()}-${(currentMonth.getMonth() + 1).toString().padStart(2, '0')}`;
+      fetchAndSetReportData(initialMonth);
     }, []);
 
     const employeeId = 'dummy'
@@ -148,40 +114,7 @@
     const handleMonthChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
       const selectedMonth = event.target.value;
       setReportMonth(selectedMonth);
-
-      try {
-        const response = await fetch(`/api/get-report?employeeId=${employeeId}&reportMonth=${selectedMonth}`);
-        if (response.ok) {
-          const data = await response.json();
-          // ここで取得したデータを使ってフォームを更新
-          setProjectOverview(data.projectOverview);
-          setMonthlyAchievement(data.monthlyAchievement);
-          setChallenges(data.challenges);
-          setDifficulties(data.difficulties);
-          setOtherComments(data.otherComments);
-          setPrinciple1(data.principle1);
-          setPrinciple2(data.principle2);
-          setPrinciple3(data.principle3);
-
-          // 確定状態に応じてUI状態を更新
-          if (data.isFinal) {
-            setIsFormDisabled(true); // フォームを無効化
-            setIsChatVisible(true); // チャット欄を表示
-          } else {
-            setIsFormDisabled(false); // フォームを有効化
-            setIsChatVisible(false); // チャット欄を非表示
-          }
-        } else if (response.status === 404) {
-          // 月報が未登録の場合の処理
-          console.log('No report found for this month, showing empty form.');
-          // フォームの状態をリセット
-          resetForm();
-          setIsFormDisabled(false); // フォームを有効化
-          setIsChatVisible(false); // チャット欄を非表示
-        }
-      } catch (error) {
-        console.error('Error fetching report:', error);
-      }
+      fetchAndSetReportData(selectedMonth);
     };
 
     // フォームの状態をリセットする関数
@@ -195,6 +128,41 @@
       setPrinciple2('');
       setPrinciple3('');
     };
+
+    const fetchAndSetReportData = async (selectedMonth: string) => {
+      try {
+        const response = await fetch(`/api/get-report?employeeId=${employeeId}&reportMonth=${selectedMonth}`);
+        if (response.ok) {
+          const data = await response.json();
+          setProjectOverview(data.projectOverview || '');
+          setMonthlyAchievement(data.monthlyAchievement || '');
+          setChallenges(data.challenges || '');
+          setDifficulties(data.difficulties || '');
+          setOtherComments(data.otherComments || '');
+          setPrinciple1(data.principle1 || '');
+          setPrinciple2(data.principle2 || '');
+          setPrinciple3(data.principle3 || '');
+          // 確定状態に応じてUI状態を更新
+          if (data.isFinal) {
+            setIsFormDisabled(true); // フォームを無効化
+            setIsChatVisible(true); // チャット欄を表示
+          } else {
+            setIsFormDisabled(false); // フォームを有効化
+            setIsChatVisible(false); // チャット欄を非表示
+          }
+        } else if (response.status === 404) {
+          // 月報が未登録の場合の処理、フォームをリセット
+          console.log('No report found for this month, showing empty form.');
+          resetForm();
+          setIsFormDisabled(false); // フォームを有効化
+          setIsChatVisible(false); // チャット欄を非表示
+        }
+      } catch (error) {
+        console.error('Error fetching report:', error);
+      }
+    };
+    
+
 
     return (
   <>
