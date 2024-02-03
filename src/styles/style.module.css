@@ -1,14 +1,20 @@
+/* Google Fontsから快適な読み心地のフォントをインポート */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
 .body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Nunito', sans-serif;
+    background-color: #F0F4F8; /* ソフトな青灰色の背景 */
     color: #333;
     line-height: 1.6;
 }
 
 .container {
     width: 80%;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
+    background-color: #FFFFFF; /* コンテナの背景色を白に */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* ソフトな影を追加 */
+    border-radius: 10px; /* 角の丸みを追加 */
 }
 
 .form_group {
@@ -18,6 +24,7 @@
 .form_group label {
     display: block;
     margin-bottom: 5px;
+    font-weight: bold; /* ラベルを強調 */
 }
 
 .form_group input[type="text"],
@@ -27,36 +34,40 @@
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    border-radius: 5px; /* 入力欄の角を丸く */
+    border: 1px solid #CED4DA; /* 枠線をソフトグレーに */
+    background-color: #FAFAFA; /* 入力欄の背景色 */
 }
 
 .note {
-    font-size: 0.8em;
+    font-size: 0.85em;
     color: #666;
-    margin-top: 5px;
 }
 
-.chat-box {
+.chat_box {
     height: 200px;
-    border: 1px solid #ddd;
+    border: 1px solid #CED4DA;
     padding: 10px;
     overflow-y: auto;
-    background-color: #fff;
+    background-color: #FFFFFF;
     margin-bottom: 10px;
+    border-radius: 5px; /* チャットボックスの角を丸く */
 }
 
 .chat_input {
-    width: calc(100% - 110px);
+    width: calc(100% - 120px);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #CED4DA;
+    background-color: #FAFAFA;
     display: inline-block;
 }
 
 .button {
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
-    background-color: #5cb85c;
+    border-radius: 25px; /* ボタンの角をより丸く */
+    background-color: #81C784; /* ボタンの背景色をソフトな緑に */
     color: white;
     cursor: pointer;
     display: inline-block;
@@ -64,7 +75,7 @@
 }
 
 .button:hover {
-    background-color: #4cae4c;
+    background-color: #66BB6A;
 }
 
 /* 最後のボタンには余分なマージンが不要な場合 */
