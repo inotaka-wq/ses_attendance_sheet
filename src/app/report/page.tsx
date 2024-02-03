@@ -316,7 +316,7 @@
         <h2>上長・営業とのチャット</h2>
         <div
           id="chat-box"
-          className={styles.chatBox}
+          className={styles.chat_box}
         />
         <input type="text" id="chat-input" className={styles.chat_input} placeholder="メッセージを入力" />
         <button className={styles.button} onClick={sendChat}>送信</button>
