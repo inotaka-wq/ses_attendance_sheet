@@ -40,60 +40,13 @@
 
     // 下書き保存ボタンのイベントハンドラ
     const saveDraft = async () => {
-      // フォームの状態をここで取得
-      const formData = {
-        employeeId,
-        reportMonth,
-        projectOverview,
-        monthlyAchievement,
-        challenges,
-        difficulties,
-        otherComments,
-        principle1,
-        principle2,
-        principle3,
-      };
-
-      // バックエンドにデータを送信
-      await fetch('/api/save-report', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-      });
-      alert('下書きを保存しました。');
+      saveFormData(); // isFinal フラグはデフォルトで false
     };
     
     // レポートを送信するイベントハンドラ
     const submitReport = async () => {
       if (window.confirm('月報を登録しますか？')) {
-        setIsFormDisabled(true); // フォームを無効化
-        setIsChatVisible(true); // チャット欄を表示
-    
-        // フォームの状態をここで取得
-        const formData = {
-          employeeId,
-          reportMonth,
-          projectOverview,
-          monthlyAchievement,
-          challenges,
-          difficulties,
-          otherComments,
-          principle1,
-          principle2,
-          principle3,
-          isFinal: true,
-        };
-        // バックエンドへの送信処理
-        await fetch('/api/save-report', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-        alert('月報を登録しました。');
+        saveFormData(true); // isFinal フラグを true にして最終報告とする
       }
     };
 
@@ -167,6 +120,48 @@
       return months;
     }
  
+    // フォームデータを送信する共通関数
+    const saveFormData = async (isFinal = false) => {
+      const formData = {
+        employeeId,
+        reportMonth,
+        projectOverview,
+        monthlyAchievement,
+        challenges,
+        difficulties,
+        otherComments,
+        principle1,
+        principle2,
+        principle3,
+        isFinal, // 最終報告かどうかのフラグ
+      };
+
+      // バックエンドにデータを送信
+      try {
+        const response = await fetch('/api/save-report', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          // 成功時の処理
+          alert(isFinal ? '月報を登録しました。' : '下書きを保存しました。');
+          if (isFinal) {
+            setIsFormDisabled(true); // フォームを無効化
+            setIsChatVisible(true); // チャット欄を表示
+          }
+        } else {
+          // エラー処理
+          console.error('Failed to save the report');
+        }
+      } catch (error) {
+        console.error('Error saving report:', error);
+      }
+    };
+
     return (
   <>
     <meta charSet="UTF-8" />
