@@ -30,18 +30,9 @@
 
     // コンポーネントがマウントされた後、月報のオプションを生成する
     useEffect(() => {
-      let months = [];
-      for (let i = 0; i < 18; i++) {
-        const monthOption = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - i, 1);
-        const year = monthOption.getFullYear();
-        // getMonth() は 0 から始まるので、1 を加算
-        const month = (monthOption.getMonth() + 1).toString().padStart(2, '0'); // '01', '02', ..., '12'
-        const monthValue = `${year}-${month}`; // 'YYYY-MM' 形式
-        const monthLabel = monthOption.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long' });
-        months.push({ value: monthValue, label: monthLabel });
-      }
+      const months = generateMonthOptions();
       setReportMonths(months);
-      const initialMonth = `${currentMonth.getFullYear()}-${(currentMonth.getMonth() + 1).toString().padStart(2, '0')}`;
+      const initialMonth = `${months[0].value}`; // 最初のオプションを初期月として使用
       fetchAndSetReportData(initialMonth);
     }, []);
 
@@ -161,9 +152,21 @@
         console.error('Error fetching report:', error);
       }
     };
-    
 
-
+    function generateMonthOptions() {
+      const months = [];
+      const currentMonth = new Date();
+      for (let i = 0; i < 18; i++) {
+        const monthOption = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - i, 1);
+        const year = monthOption.getFullYear();
+        const month = (monthOption.getMonth() + 1).toString().padStart(2, '0'); // '01', '02', ..., '12'
+        const monthValue = `${year}-${month}`; // 'YYYY-MM' 形式
+        const monthLabel = monthOption.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long' });
+        months.push({ value: monthValue, label: monthLabel });
+      }
+      return months;
+    }
+ 
     return (
   <>
     <meta charSet="UTF-8" />
