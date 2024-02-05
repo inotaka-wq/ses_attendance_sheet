@@ -17,6 +17,19 @@
     border-radius: 10px; /* 角の丸みを追加 */
 }
 
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input {
+    padding: 10px;
+    border: 1px solid #CED4DA;
+    border-radius: 5px;
+    background-color: #FAFAFA;
+}
+
 .form_group {
     margin-bottom: 20px;
 }
