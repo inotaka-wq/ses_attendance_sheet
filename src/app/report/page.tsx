@@ -40,8 +40,6 @@ export default function ReportPage() {
     fetchAndSetReportData(initialMonth);
   }, []);
 
-  const employeeId = "dummy";
-
   // 下書き保存ボタンのイベントハンドラ
   const saveDraft = async () => {
     saveFormData(); // isFinal フラグはデフォルトで false
@@ -82,7 +80,7 @@ export default function ReportPage() {
   const fetchAndSetReportData = async (selectedMonth: string) => {
     try {
       const response = await fetch(
-        `/api/get-report?employeeId=${employeeId}&reportMonth=${selectedMonth}`
+        `/api/get-report?reportMonth=${selectedMonth}`
       );
       if (response.ok) {
         const data = await response.json();
@@ -138,7 +136,6 @@ export default function ReportPage() {
   // フォームデータを送信する共通関数
   const saveFormData = async (isFinal = false) => {
     const formData = {
-      employeeId,
       reportMonth,
       projectOverview,
       monthlyAchievement,

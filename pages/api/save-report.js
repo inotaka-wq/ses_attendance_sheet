@@ -1,16 +1,24 @@
+import { withIronSession } from "next-iron-session";
 const dbConnect = require("./db-connect");
 
-export default async function handler(req, res) {
+async function handler(req, res) {
+  // セッションからユーザー情報を取得
+  const user = req.session.get("user");
+  if (!user) {
+    // ユーザーが認証されていない場合はエラーを返す
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
   // データベースに接続
   const { db } = await dbConnect();
   const collection = db.collection("json_data"); // コレクション名
 
   if (req.method === "POST") {
-    const reportData = req.body;
+    const reportData = { ...req.body, employeeId: user.userId };
     console.log("Report data received:", reportData);
     // 一意性を保証するためのクエリを作成
     const query = {
-      employeeId: reportData.employeeId,
+      employeeId: user.userId,
       reportMonth: reportData.reportMonth,
     };
     // すでに同じキーのドキュメントがあるか確認
@@ -62,3 +70,12 @@ export default async function handler(req, res) {
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
+
+export default withIronSession(handler, {
+  cookieName: "login_info", // クッキー名を適切に設定
+  password: "complex_password_at_least_32_characters_long", // 長く複雑なパスワードを設定
+  //  password: process.env.SESSION_SECRET, // 環境変数からセッション暗号化キーを取得
+  cookieOptions: {
+    secure: process.env.NODE_ENV === "production", // 本番環境ではHTTPSを使用
+  },
+});
