@@ -19,9 +19,9 @@ export default function Login() {
       body: JSON.stringify({ userId, password }),
     });
     if (res.ok) {
-      const { role, userId } = await res.json();
+      const { role } = await res.json();
       if (role === "employee") {
-        router.push(`/report?userId=${userId}`);
+        router.push(`/report`);
       } else {
         // マネージャー向け画面にリダイレクト（例）
         router.push("/manager-dashboard");

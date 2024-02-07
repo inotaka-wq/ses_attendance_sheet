@@ -14,7 +14,7 @@ async function loginRoute(req, res) {
     // 認証成功時、ユーザー情報をセッションに保存
     req.session.set("user", { userId, role: user.role });
     await req.session.save();
-    res.status(200).json({ success: true, role: user.role, userId });
+    res.status(200).json({ success: true, role: user.role });
   } else {
     // 認証失敗
     res.status(401).json({ success: false, message: "認証に失敗しました。" });
