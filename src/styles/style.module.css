@@ -83,6 +83,7 @@
     background-color: #81C784; /* ボタンの背景色をソフトな緑に */
     color: white;
     cursor: pointer;
+    max-width: 200px; 
     display: inline-block;
     margin-right: 10px;
 }
