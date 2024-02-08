@@ -31,9 +31,19 @@ export async function loader({ request }: { request: NextRequest })  {
   };
 }
 
-export default function ReportPage(props) {
-  console.error(props);
+// props の型定義
+interface ReportPageProps {
+  // loader から返される props の型を定義
+  // 例:
+  user: {
+    name: string;
+    role: string;
+  };
+  // 他にも必要なプロパティがあればここに追加します
+}
 
+
+const ReportPage: React.FC<ReportPageProps> = (props) => {  console.error(props);
   // ページに表示するデータの状態を管理するための状態フック
   const [reportMonths, setReportMonths] = useState<MonthOption[]>([]);
   // フォームが無効化されているかどうかを追跡するための状態
