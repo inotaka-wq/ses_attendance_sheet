@@ -28,5 +28,6 @@ export default withIronSession(loginRoute, {
   // セキュリティ設定など、必要に応じて他のオプションをここに追加
   cookieOptions: {
     secure: process.env.NODE_ENV === "production", // 本番環境ではHTTPSを使用
+    maxAge: 3 * 60 * 60 // 3H
   },
 });

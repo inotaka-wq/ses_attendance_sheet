@@ -2,13 +2,38 @@
 
 import React, { useState, useEffect } from "react";
 import styles from "../../styles/style.module.css";
+import withAuth from "../../middleware/withAuth";
+import type { NextRequest } from 'next/server';
 
 type MonthOption = {
   value: string;
   label: string;
 };
 
-export default function ReportPage() {
+export async function loader({ request }: { request: NextRequest })  {
+  const url = new URL(request.url);
+  // ここで認証状態をチェック
+  // ログインしていない場合は、ログインページへリダイレクト
+  const user = {/* ユーザー認証ロジック */};
+
+  if (!user) {
+    return new Response(null, {
+      status: 302,
+      headers: {
+        'Location': '/login',
+      },
+    });
+  }
+
+  // ユーザーがログインしている場合、必要なデータをフェッチしてpropsとして返す
+  return {
+    props: {/* 必要なプロパティ */},
+  };
+}
+
+export default function ReportPage(props) {
+  console.error(props);
+
   // ページに表示するデータの状態を管理するための状態フック
   const [reportMonths, setReportMonths] = useState<MonthOption[]>([]);
   // フォームが無効化されているかどうかを追跡するための状態
