@@ -382,3 +382,5 @@ const ReportPage: React.FC<ReportPageProps> = (props) => {  console.error(props)
     </>
   );
 }
+
+export default ReportPage;
