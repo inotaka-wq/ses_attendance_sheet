@@ -1,4 +1,4 @@
-import { withIronSession } from "next-iron-session";
+import { withSession } from "../../lib/session";
 const dbConnect = require("./db-connect");
 
 async function handler(req, res) {
@@ -34,11 +34,4 @@ async function handler(req, res) {
   }
 }
 
-export default withIronSession(handler, {
-  cookieName: "login_info",
-  password: "complex_password_at_least_32_characters_long",
-  //  password: process.env.SESSION_SECRET, // 環境変数からセッション暗号化キーを取得
-  cookieOptions: {
-    secure: process.env.NODE_ENV === "production",
-  },
-});
+export default withSession(handler);
