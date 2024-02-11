@@ -1,4 +1,4 @@
-import { withIronSession } from "next-iron-session";
+import { withSession } from "../../lib/session";
 
 async function loginRoute(req, res) {
   const { userId, password } = req.body;
@@ -21,12 +21,4 @@ async function loginRoute(req, res) {
   }
 }
 
-export default withIronSession(loginRoute, {
-  cookieName: "login_info", // クッキー名を適切に設定
-  password: "complex_password_at_least_32_characters_long", // 長く複雑なパスワードを設定
-  //  password: process.env.SESSION_SECRET, // 環境変数からセッション暗号化キーを取得
-  // セキュリティ設定など、必要に応じて他のオプションをここに追加
-  cookieOptions: {
-    secure: process.env.NODE_ENV === "production", // 本番環境ではHTTPSを使用
-  },
-});
+export default withSession(loginRoute);

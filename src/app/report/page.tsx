@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { logout } from "../../utils/auth";
 import styles from "../../styles/style.module.css";
 
 type MonthOption = {
@@ -112,6 +113,10 @@ export default function ReportPage() {
     }
   };
 
+  const handleLogoutClick = async () => {
+    await logout(); // ログアウト処理を実行
+  };
+
   function generateMonthOptions() {
     const months = [];
     const currentMonth = new Date();
@@ -180,6 +185,12 @@ export default function ReportPage() {
       <title>月報画面</title>
       <div className={styles.container}>
         <h1>月報</h1>
+        {/* ログアウトボタン */}
+        <div className={styles.logoutButtonContainer}>
+          <button className={styles.logoutButton} onClick={handleLogoutClick}>
+            ログアウト
+          </button>
+        </div>
         <div className="styles.user-info">
           <p id="user-name">
             ログインユーザ名: <span id="username" />
