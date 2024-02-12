@@ -23,8 +23,8 @@ export default function Login() {
       if (role === "employee") {
         router.push(`/report`);
       } else {
-        // マネージャー向け画面にリダイレクト（例）
-        router.push("/manager-dashboard");
+        // 管理画面にリダイレクト
+        router.push("/dashboard");
       }
     } else {
       alert("ログインに失敗しました。");
