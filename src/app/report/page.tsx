@@ -185,7 +185,6 @@ export default function ReportPage() {
       <title>月報画面</title>
       <div className={styles.container}>
         <h1>月報</h1>
-        {/* ログアウトボタン */}
         <div className={styles.logoutButtonContainer}>
           <button className={styles.logoutButton} onClick={handleLogoutClick}>
             ログアウト
@@ -196,7 +195,6 @@ export default function ReportPage() {
             ログインユーザ名: <span id="username" />
           </p>
         </div>
-        {/* 月報選択 */}
         <div className={styles.form_group}>
           <label htmlFor="report-month">月報選択</label>
           <select id="report-month" onChange={handleMonthChange}>
