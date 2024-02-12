@@ -20,6 +20,8 @@ brew install mongodb-community@5.0
 npm install mongodb
 brew services start mongodb/brew/mongodb-community@5.0
 
+mongosh
+
 bun dev
 データベースのリストを表示:
 
