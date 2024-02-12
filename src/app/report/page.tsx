@@ -182,7 +182,7 @@ export default function ReportPage() {
   return (
     <>
       <meta charSet="UTF-8" />
-      <title>月報画面</title>
+      <title>月報</title>
       <div className={styles.container}>
         <h1>月報</h1>
         <div className={styles.logoutButtonContainer}>
