@@ -16,22 +16,22 @@ const ManagerDashboard = () => {
   // 月報データ用の状態（仮データ）
   const reports = [
     {
-      employeeId: "001",
-      employeeName: "山田 太郎",
+      userId:"yamada.taro",
+      userName: "山田 太郎",
       reportStatus: "提出済み",
-      reportLink: "report-detail.html?employeeId=001&month=2023-07",
+      reportLink: "report-detail.html?userId=yamada.taro&month=2023-07",
     },
     {
-      employeeId: "002",
-      employeeName: "鈴木 花子",
+      userId:"suzuki.hanako",
+      userName: "鈴木 花子",
       reportStatus: "未提出",
       reportLink: "",
     },
     {
-      employeeId: "003",
-      employeeName: "佐藤 次郎",
+      userId:"sato.jiro",
+      userName: "佐藤 次郎",
       reportStatus: "提出済み",
-      reportLink: "report-detail.html?employeeId=003&month=2023-07",
+      reportLink: "report-detail.html?userId=sato.jiro&month=2023-07",
     },
   ];
 
@@ -110,8 +110,8 @@ const ManagerDashboard = () => {
           <tbody>
             {reports.map((report, index) => (
               <tr key={index}>
-                <td>{report.employeeId}</td>
-                <td>{report.employeeName}</td>
+                <td>{report.userId}</td>
+                <td>{report.userName}</td>
                 <td>
                   {report.reportLink ? (
                     <a href={report.reportLink} className={styles.link}>
