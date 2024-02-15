@@ -32,10 +32,10 @@ use yourDatabaseName
 show collections
 コレクションにデータを挿入:
 
-db.yourCollectionName.insert({ key: 'value' })
+db.json_data.insert({ key: 'value' })
 コレクションからデータを検索:
 
-db.yourCollectionName.find()
+db.json_data.find()
 特定のクエリでデータを検索:
 
 db.json_data.find({ key: 'value' })
