@@ -14,10 +14,13 @@ async function handler(req, res) {
     const { db } = await dbConnect();
     const collection = db.collection("json_data"); // コレクション名
 
-    // クエリパラメータから社員IDと月を取得
-    // employeeIdいらん
-    const { reportMonth } = req.query;
-    console.log(req.query);
+    // URLパラメータから社員IDと月を取得（自分以外のユーザーIDも許可）
+    const { userId, reportMonth } = req.query;
+
+    // マネージャーのみが他のユーザーの月報にアクセス可能
+    if (user.role !== "manager" && user.userId !== userId) {
+      return res.status(403).json({ message: "Access Denied" });
+    }
 
     // MongoDBで検索
     const result = await collection.findOne({ employeeId, reportMonth });

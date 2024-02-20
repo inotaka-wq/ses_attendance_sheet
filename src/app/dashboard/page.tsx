@@ -19,7 +19,7 @@ const ManagerDashboard = () => {
       userId:"yamada.taro",
       userName: "山田 太郎",
       reportStatus: "提出済み",
-      reportLink: "report-detail.html?userId=yamada.taro&month=2023-07",
+      reportLink: "report?userId=yamada.taro&month=2023-07",
     },
     {
       userId:"suzuki.hanako",
@@ -31,7 +31,13 @@ const ManagerDashboard = () => {
       userId:"sato.jiro",
       userName: "佐藤 次郎",
       reportStatus: "提出済み",
-      reportLink: "report-detail.html?userId=sato.jiro&month=2023-07",
+      reportLink: "report?userId=sato.jiro&month=2023-07",
+    },
+    {
+      userId:"employee",
+      userName: "田中 一郎",
+      reportStatus: "提出済み",
+      reportLink: "report?userId=employee&month=2023-07",
     },
   ];
 
