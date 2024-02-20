@@ -28,10 +28,10 @@ const ManagerDashboard = () => {
       reportLink: "",
     },
     {
-      userId:"sato.jiro",
+      userId:"manager",
       userName: "佐藤 次郎",
       reportStatus: "提出済み",
-      reportLink: "report?userId=sato.jiro&month=2023-07",
+      reportLink: "report?userId=manager&month=2023-07",
     },
     {
       userId:"employee",
